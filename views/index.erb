@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Todo list app in Sinatra</h1>
+        <div>
+            <input type="text" id="todo-input" name="todo" placeholder="Your task here...">
+        </div>
+        <div id="todos">
+        </div>
+    </div>
+
+    <script>
+        const todoInput = document.getElementById('todo-input');
+        todoInput.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') {
+                postData('/api/todos', {todo: todoInput.value});
+                todoInput.value = '';
+            }
+        });
+
+        async function postData(url, data)
+        {
+            const options = {
+                method: 'POST', 
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+
+            fetch(url, options)
+                .then(response => {
+                    return response.json();
+                })
+                .then(json => {
+                    console.log(json);
+                    if(json.status === 'ok') {
+                        addTodo(json.todo);
+                    }
+                    
+                })
+        }
+
+        function createButtons(id)
+        {
+        }
+
+        function addTodo(todo, isdone = false)
+        {
+            const todoItem = document.createElement('div');
+            todoItem.setAttribute('class', 'todo-item');
+            
+            if(isdone === true) {
+                todoItem.classList.add('done');
+            }
+
+            todoItem.innerHTML = `
+                <span>${todo.title}</span>
+                <span class="icon"><i data-id="${todo.id}" class='bx bx-edit' ></i> <i data-id="${todo.id}" class='bx bx-trash' ></i></span>
+            `;
+
+            const todos = document.getElementById('todos');
+            todos.append(todoItem);
+        }
+
+        function getAllTodos()
+        {
+            fetch('/api/todos')
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    displayAllTodos(data);
+                });
+        }
+
+        function displayAllTodos(todos)
+        {
+            todos.forEach(todo => {
+                addTodo(todo, todo.isdone);
+            });
+        }
+
+        getAllTodos();
+    </script>
+</body>
+</html>

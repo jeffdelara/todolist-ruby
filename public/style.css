@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    background-color: rgba(245, 245, 245, .6);
+}
+
+h1, h2, h3 {
+    font-weight: 800;
+}
+
+.container {
+    width: 600px;
+    background-color: white;
+    margin: 1rem auto;
+    padding: 2rem;
+    border-radius: .5rem;
+    box-shadow: 1px 1px 3px rgba(170, 170, 170, .3);
+}
+#todos {
+}
+
+.todo-item {
+    border-bottom: 1px solid #EEE;
+    padding: .5rem;
+    margin: .3rem 0;
+    border-radius: 3px;
+    font-weight: 800;
+    color: #555;
+    display: block;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.icon {
+    float: right;
+    visibility: hidden;
+    font-size: 1.3rem;
+    opacity: 0;
+    transition: .3s;
+}
+.todo-item:hover {
+    background-color: rgb(245, 255, 230);
+}
+
+.todo-item:hover .icon {
+    opacity: 1;
+    visibility: visible;
+}
+
+button {
+    background-color: turquoise;
+    color: rgb(8, 83, 76);
+    padding: .5rem .8rem;
+    border: 0;
+    border-radius: .3rem;
+    font-size: .9rem;
+}
+
+input {
+    border-radius: 3px;
+    border: 2px solid #AAA;
+    font-size: 1.5rem;
+    padding: .3rem;
+    outline: none;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.right {
+    text-align: right;
+}
+.done {
+    background-color: #EEE;
+    text-decoration: line-through;
+    font-weight: 400;
+}
